@@ -33,21 +33,49 @@ export default function EmailCapture({
       return;
     }
 
+    if (showRoleButtons && !selectedRole) {
+      setStatus("error");
+      setMessage("Please select whether you're a guest or host");
+      return;
+    }
+
     setStatus("loading");
 
-    // Simulate API call - replace with your actual waitlist API
-    setTimeout(() => {
-      setStatus("success");
-      setMessage("Thanks for joining! We'll be in touch soon.");
-      setEmail("");
-      setSelectedRole(null);
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          role: selectedRole,
+        }),
+      });
 
-      // Reset after 5 seconds
-      setTimeout(() => {
-        setStatus("idle");
-        setMessage("");
-      }, 5000);
-    }, 1000);
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus("success");
+        setMessage(
+          data.message || "Thanks for joining! We'll be in touch soon."
+        );
+        setEmail("");
+        setSelectedRole(null);
+
+        // Reset after 5 seconds
+        setTimeout(() => {
+          setStatus("idle");
+          setMessage("");
+        }, 5000);
+      } else {
+        setStatus("error");
+        setMessage(data.error || "Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      setStatus("error");
+      setMessage("Network error. Please check your connection and try again.");
+    }
   };
 
   const inputSizeClasses =
