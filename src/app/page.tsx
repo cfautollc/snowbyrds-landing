@@ -10,9 +10,16 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 sm:pt-24 sm:pb-32">
           {/* Logo */}
           <div className="text-center mb-8">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-primary mb-2 tracking-tight">
-              Snowbyrds
-            </h1>
+            <div className="flex items-center justify-center gap-4">
+              <img
+                src="/logo.svg"
+                alt="Snowbyrds logo"
+                className="w-16 h-16 sm:w-20 sm:h-20"
+              />
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-primary mb-2 tracking-tight">
+                Snowbyrds
+              </h1>
+            </div>
             <div className="flex items-center justify-center gap-2 text-sm text-gray-600 dark:text-gray-400">
               <span className="inline-block w-2 h-2 bg-primary rounded-full animate-pulse"></span>
               <span>Launching Soon</span>
@@ -224,29 +231,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h3 className="text-2xl font-bold text-white mb-2">Snowbyrds</h3>
-            <p className="text-sm mb-6">Seasonal Rentals Made Simple</p>
-            <div className="flex justify-center gap-8 text-sm">
-              <a href="#" className="hover:text-white transition-colors">
+      {/* Footer (black & white design) */}
+      <footer className="bg-black text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="flex items-start gap-4">
+              <img src="/logo.svg" alt="Snowbyrds logo" className="w-10 h-10" />
+              <div>
+                <div className="text-xl font-semibold">SnowByrds</div>
+                <div className="text-sm text-gray-300">
+                  Comfortable Stays. Seamless Bookings.
+                </div>
+              </div>
+            </div>
+
+            <nav className="flex gap-6 justify-center">
+              <a
+                href="#"
+                className="text-sm text-gray-300 hover:text-white transition-colors"
+              >
                 About
               </a>
-              <a href="#" className="hover:text-white transition-colors">
+              <a
+                href="#"
+                className="text-sm text-gray-300 hover:text-white transition-colors"
+              >
                 Contact
               </a>
-              <a href="#" className="hover:text-white transition-colors">
+              <a
+                href="#"
+                className="text-sm text-gray-300 hover:text-white transition-colors"
+              >
                 Privacy
               </a>
-              <a href="#" className="hover:text-white transition-colors">
+              <a
+                href="#"
+                className="text-sm text-gray-300 hover:text-white transition-colors"
+              >
                 Terms
               </a>
+            </nav>
+
+            <div className="text-right text-sm text-gray-400">
+              <div className="hidden md:block">
+                Early access & support: hello@snowbyrds.example
+              </div>
+              <div className="mt-2 md:mt-0">
+                &copy; 2025 Snowbyrds. All rights reserved.
+              </div>
             </div>
-            <div className="mt-8 pt-8 border-t border-gray-800 text-xs">
-              <p>&copy; 2025 Snowbyrds. All rights reserved.</p>
-            </div>
+          </div>
+
+          <div className="mt-8 border-t border-gray-800 pt-6 text-center text-xs text-gray-500">
+            Built with care for seasonal travelers.
           </div>
         </div>
       </footer>

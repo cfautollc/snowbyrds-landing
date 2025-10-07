@@ -3,8 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary: #0ea5e9; /* Sky blue for winter/snowbird theme */
-  --primary-dark: #0284c7;
+  --primary: #176eff; /* primary brand blue requested */
+  --primary-dark: #0f57bf;
   --secondary: #06b6d4; /* Cyan accent */
   --accent: #f0f9ff; /* Light blue background */
   --gray-50: #f9fafb;
