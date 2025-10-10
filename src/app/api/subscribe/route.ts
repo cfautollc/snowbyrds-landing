@@ -20,9 +20,25 @@ export async function POST(request: NextRequest) {
     }
 
     const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
+    const apiKey = process.env.MAILCHIMP_API_KEY;
+    const serverPrefix = process.env.MAILCHIMP_SERVER_PREFIX;
+    
+    // Debug logging (remove in production)
+    console.log('Environment check:', {
+      hasApiKey: !!apiKey,
+      hasAudienceId: !!audienceId,
+      hasServerPrefix: !!serverPrefix,
+      serverPrefix: serverPrefix,
+      audienceId: audienceId,
+      apiKeyPrefix: apiKey ? apiKey.substring(0, 10) + '...' : 'missing'
+    });
 
-    if (!audienceId) {
-      console.error("MAILCHIMP_AUDIENCE_ID is not configured");
+    if (!audienceId || !apiKey || !serverPrefix) {
+      console.error("Missing Mailchimp configuration:", {
+        audienceId: !!audienceId,
+        apiKey: !!apiKey,
+        serverPrefix: !!serverPrefix
+      });
       return NextResponse.json(
         { error: "Server configuration error" },
         { status: 500 }
@@ -55,6 +71,19 @@ export async function POST(request: NextRequest) {
     );
   } catch (error: any) {
     console.error("Mailchimp subscription error:", error);
+    console.error("Error details:", {
+      status: error.status,
+      message: error.message,
+      response: error.response?.body || error.response
+    });
+
+    // Handle 403 Forbidden (API key/permission issues)
+    if (error.status === 403) {
+      return NextResponse.json(
+        { error: "API configuration error. Please check your Mailchimp credentials." },
+        { status: 500 }
+      );
+    }
 
     // Handle specific Mailchimp errors
     if (
